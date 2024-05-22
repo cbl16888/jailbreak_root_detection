@@ -13,8 +13,10 @@ enum JailbreakIssue {
   cydiaFound,
   tampered,
   onExternalStorage,
-  unknown;
+  unknown
+}
 
+extension JailbreakIssueValue on JailbreakIssue {
   static JailbreakIssue fromString(String value) {
     if (value == "jailbreak") {
       return JailbreakIssue.jailbreak;
@@ -43,7 +45,6 @@ enum JailbreakIssue {
     if (value == "onExternalStorage") {
       return JailbreakIssue.onExternalStorage;
     }
-
     return JailbreakIssue.unknown;
   }
 }
@@ -61,7 +62,7 @@ class JailbreakRootDetection {
     final issues =
         await methodChannel.invokeMethod<List<dynamic>>('checkForIssues');
 
-    return issues?.map((e) => JailbreakIssue.fromString(e ?? '')).toList() ??
+    return issues?.map((e) => JailbreakIssueValue.fromString(e ?? '')).toList() ??
         [];
   }
 
